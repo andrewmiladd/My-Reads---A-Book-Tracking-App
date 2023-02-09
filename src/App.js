@@ -27,7 +27,7 @@ const changeShelf = async (book, shelf) => {
 <div className="app">
     <Routes>
       <Route exact path={'/'} element={<Main books={books} changeShelf={changeShelf}/>}></Route>
-      <Route exact path={'/search'} element={<Search books={books} changeShelf={changeShelf}/>}></Route>
+      <Route exact path={'/search'} element={<Search changeShelf={changeShelf}/>}></Route>
     </Routes>
     </div>
 );

@@ -4,28 +4,23 @@ import { search } from "../BooksAPI";
 import Book from '../Components/Book';
 import { useEffect, useState } from 'react';
 
-function Search({changeShelf, books}){
+function Search({changeShelf}){
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
-    if (query === "") {console.log(books); return setData([]);}
-    
     search(query).then(async (res) => {
-      if (res.error) {
+      if (!res) {
         setData([]);
         setLoading(false);
       } else {
-        setData(await res);
+        console.log();
+        setData(res);
         setLoading(true);
-        res.map((e) => {
-          return books.forEach((item) => {
-            e.id === item.id && (e.shelf = item.shelf);
-          });
-        });
-      }
+        }
     });
-  }, [books, query]);
+  
+  }, [query]);
 
     return(
         <div className="search-books">
@@ -42,12 +37,12 @@ function Search({changeShelf, books}){
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-            {loading ? (
+            {loading && data.length   ? (
             data.map((book) => (
-              <Book key={book.id} book={book} changeShelf={changeShelf} />
+              <Book key={book.id} books={book} changeShelf={changeShelf} />
             ))
           ) : (
-            <h1>Book not found</h1>
+            <h1>Not found</h1>
           )}
             </ol>
           </div>
