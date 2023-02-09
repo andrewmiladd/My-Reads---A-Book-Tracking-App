@@ -11,7 +11,6 @@ function Search({changeShelf}){
   useEffect(() => {
     search(query).then(async (res) => {
       if (!res) {
-        setData([]);
         setLoading(false);
       } else {
         console.log();
@@ -42,7 +41,7 @@ function Search({changeShelf}){
               <Book key={book.id} books={book} changeShelf={changeShelf} />
             ))
           ) : (
-            <h1>Not found</h1>
+            <h1>No Result</h1>
           )}
             </ol>
           </div>
